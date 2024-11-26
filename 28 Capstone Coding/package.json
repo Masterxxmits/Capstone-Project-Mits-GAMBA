@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "engine-blackjack": "^0.9.2",
+    "howler": "^2.2.4"
+  }
+}
