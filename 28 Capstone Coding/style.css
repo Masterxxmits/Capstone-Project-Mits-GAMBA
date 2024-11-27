@@ -7,3 +7,18 @@ html, body {
 canvas {
   display: block;
 }
+@keyframes color {
+  0%   { background: #f10000; }
+  20%  { background: #af0000; }
+  40%  { background: #a00000; }
+  60%  { background: #7a0000; }
+  80%  { background: #b90000; }
+  100% { background: #ff0000; }
+}
+
+body {
+  background: #880000; /* Fallback */
+  animation: color 9s infinite linear;
+  text-align: center;
+  padding: 2em;
+}
