@@ -2,13 +2,9 @@
 // Mitsaal Idris
 // TBD
 
-// let sequence = [];
-// let stepAmount = 1;
-// let currentValue = 0;
-// let largest = 0;
-// let scaleAmount = 0;
-// let arcList = [];
-
+function preload(){
+  (loadImage("assets/LOGO.png"));
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -16,21 +12,14 @@ function setup() {
   noFill();
 }
 
-// function draw() {
-//   if(largest < 5000){
-//     //background(151, 42, 39);
-//     //translate(0, height/6);
-//     addToSequence(height/2);
-//     addToSequence(height/6);
-//     addToSequence(height*5/6);
-//     addToSequence(height/1.5);
-//     addToSequence(height/3);
-//     scaleAmount = lerp(scaleAmount, width/largest);
-//     //scale(scaleAmount);
-//     renderArcs();
-//   }
-  
-// }
+function draw() {
+  function draw() {
+    var ctx = (a canvas context);
+    ctx.canvas.width  = window.innerWidth;
+    ctx.canvas.height = window.innerHeight;
+  }
+}
+
 
 // function addToSequence(y){
 //   let backwards = currentValue - stepAmount;
