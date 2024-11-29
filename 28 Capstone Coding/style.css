@@ -11,17 +11,13 @@ div {
   margin: 0px;
   width:100vw;
   height: 100vh;
-  background-color: #67686b3b;
+  /* background-color: #67686b3b; */
 }
 
-.pattern1{
-  background-image: repeating-linear-gradient(36deg, rgba(122, 45, 45, 0.493), rgba(114, 47, 47, 0.562) 3px, transparent 0px, transparent 10px);
-}
-
-/* .pattern2 {
-  background-image: repeating-linear-gradient(-45deg, rgba(255,255,255, 0.1), rgba(255,255,255, 0.1) 1px, transparent 1px, transparent 6px);
-  background-size: 4px 4px;
+/* .pattern1{ */
+  /* background-image: repeating-linear-gradient(36deg, rgba(122, 45, 45, 0.493), rgba(114, 47, 47, 0.562) 3px, transparent 0px, transparent 10px);
 } */
+
 @keyframes color {
   0%   { background: #f10000; }
   20%  { background: #af0000; }
@@ -32,20 +28,10 @@ div {
 }
 
 body {
-  background: #880000; 
+  /* background: #880000;  */
   animation: color 7s infinite linear;
   /* text-align: center; */
   /* padding: 2em; */
 }
 
-/* div {
-  margin: 0px;
-  width:100vw;
-  height: 100vh;
-  background-color: #67686b3b;
-}
-
-.pattern1{
-  background-image: repeating-linear-gradient(36deg, rgba(122, 45, 45, 0.493), rgba(114, 47, 47, 0.562) 3px, transparent 0px, transparent 10px);
-} */
 
