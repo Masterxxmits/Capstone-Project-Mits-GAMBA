@@ -5,33 +5,36 @@ html, body {
 }
 
 canvas {
-  display: flex;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-div {
+/* div {
   margin: 0px;
   width:100vw;
-  height: 100vh;
+  height: 100vh; */
   /* background-color: #67686b3b; */
-}
+/* }
 
-/* .pattern1{ */
-  /* background-image: repeating-linear-gradient(36deg, rgba(122, 45, 45, 0.493), rgba(114, 47, 47, 0.562) 3px, transparent 0px, transparent 10px);
+.pattern1{
+  background-image: repeating-linear-gradient(36deg, rgba(122, 45, 45, 0.493), rgba(114, 47, 47, 0.562) 3px, transparent 0px, transparent 10px);
 } */
 
-@keyframes color {
+/* @keyframes color {
   0%   { background: #f10000; }
   20%  { background: #af0000; }
   40%  { background: #a00000; }
   60%  { background: #7a0000; }
   80%  { background: #b90000; }
   100% { background: #f10000; }
-}
+} */
 
-body {
-  /* background: #880000;  */
+/* body {
+  background: #880000; 
   animation: color 7s infinite linear;
-  /* text-align: center; */
+  text-align: center; */
   /* padding: 2em; */
-}
+/* } */
 
 
