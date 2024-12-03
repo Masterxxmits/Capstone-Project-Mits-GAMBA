@@ -7,6 +7,8 @@ let bJLogo;
 let rLogo;
 let sLogo;
 let logoY = 0;
+let bJHover = false;
+let bJY;
 
 function preload(){
   logo = loadImage('assets/GAMBA LOGO (1).png');
@@ -16,8 +18,10 @@ function preload(){
 }
 
 function setup() {
-  logoY = height/15;
   createCanvas(windowWidth, windowHeight);
+  imageMode(CENTER);
+  logoY = height/15;
+  bJY = height/2.1;
   stroke(255);
   noFill();
   
@@ -34,19 +38,27 @@ function redBackGround(){
 
 function draw() {
   // background(255, 50, 5);
+  
+  if((mouseX > width/5-50 && mouseX < width/5+50) && (mouseY > bJY-125 && mouseY < bJY+55)){
+    bJHover = true;
+    bJY = max(bJY - 3, height/2.1 - 50);
+  }
+  else{
+    bJHover = false;
+    bJY = min(bJY + 3, height/2.1);
+  }
   redBackGround();
   image(logo, width/2.4, logoY+sin(frameCount/20)* 30, 400, 330);
-  image(bJLogo, width/10, height/3, 400, 300);
+  image(bJLogo, width/5, bJY, 400, 300);
   image(rLogo, width/2.4, height/1.8, 370, 300);
   image(sLogo, width/1.4, height/3, 400, 300);
-  if(mouseX > 320 && mouseX < 395){
-
-  }
+  // fill(0)
+  // rect(width/5-50, bJY-125, 100, 180)
 }
 
 function mousePressed() {
   // click detection
-  if((mouseX > 320 && mouseX < 395) && (mouseY > 369 && mouseY < 481)){
+  if((mouseX > width/5-50 && mouseX < width/5+50) && (mouseY > bJY-125 && mouseY < bJY+55)){
     console.log(mouseX, mouseY);
   }
   if((mouseX > 750 && mouseX < 905) && (mouseY > 560 && mouseY < 705)){
