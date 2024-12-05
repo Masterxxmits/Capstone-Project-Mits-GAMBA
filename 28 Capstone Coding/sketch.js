@@ -16,6 +16,7 @@ let sY;
 let slotsA = 0;
 let blackJackA = 0;
 let rouletteA = 0;
+let topLayer;
 
 function preload(){
   logo = loadImage('assets/GAMBA LOGO (1).png');
@@ -26,6 +27,7 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  topLayer = createGraphics(800,750);
   imageMode(CENTER);
   logoY = height/5.5;
   bJY = height/2.1;
@@ -82,6 +84,20 @@ function draw() {
     for(let x = -width; x <width; x += 20){
       line(x, 0, x+800, height);
     }
+    
+    fill(255);
+    stroke(0);
+    rectMode(CENTER);
+    rect(width/2, height/2, 250, 750);
+    rect(width/2.8, height/2, 250, 750);
+    rect(width/1.55, height/2, 250, 750);
+    topLayer.clear();
+    topLayer.rectMode(CENTER);
+    topLayer.fill(255,0,0);
+    topLayer.stroke(0);
+    topLayer.rect(mouseX, mouseY, 300, 300);
+    
+    image(topLayer, width/2, height/2, 800, 750);
   }
   if(blackJackA === 1){
     background(53+sin(frameCount/20)*30, 101+sin(frameCount/20)*30,77+sin(frameCount/20)*30);
@@ -90,7 +106,7 @@ function draw() {
     }
   }
   if(rouletteA === 1){
-    background(237+sin(frameCount/20)*30, 205+sin(frameCount/20)*30,98+sin(frameCount/20)*30);
+    background(145+sin(frameCount/20)*30, 193+sin(frameCount/20)*30,214+sin(frameCount/20)*30);
     for(let x = -width; x <width; x += 20){
       line(x, 0, x+800, height);
     }
@@ -114,5 +130,13 @@ function mousePressed() {
     if(mouseIsPressed){
       slotsA = 1;
     }
+  }
+}
+
+class SlotTile{
+  constructor(x, y, value){
+    this.x = x;
+    this.y = y;
+    // this.value = 
   }
 }
