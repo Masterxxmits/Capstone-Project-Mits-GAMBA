@@ -6,6 +6,12 @@ let logo;
 let bJLogo;
 let rLogo;
 let sLogo;
+let slotSeven;
+let slotBar;
+let slotCherry;
+let slotLemon;
+let slotOrange;
+let mySlotGame;
 let logoY = 0;
 let bJHover = false;
 let rHover = false;
@@ -23,6 +29,11 @@ function preload(){
   bJLogo = loadImage('assets/BLACKJACK LOGO.png');
   rLogo = loadImage('assets/ROULETTE LOGO.png');
   sLogo = loadImage('assets/SLOTS LOGO.png');
+  slotSeven = loadImage('assets/SLOTS 7.png');
+  slotBar = loadImage('assets/SLOTS BAR.png');
+  slotCherry = loadImage('assets/SLOTS CHERRY.png');
+  slotLemon = loadImage('assets/SLOTS LEM.png');
+  slotOrange = loadImage('assets/SLOTS ORG.png');
 }
 
 function setup() {
@@ -33,6 +44,7 @@ function setup() {
   bJY = height/2.1;
   rY = height/1.4;
   sY = height/2.3;
+  mySlotGame = new SlotGame(width/2, height/2);
   stroke(255);
   noFill();
   // imageMode(CENTER);
@@ -91,12 +103,12 @@ function draw() {
     rect(width/2, height/2, 250, 750);
     rect(width/2.8, height/2, 250, 750);
     rect(width/1.55, height/2, 250, 750);
+    topLayer.mySlotGame.display();
     topLayer.clear();
     topLayer.rectMode(CENTER);
     topLayer.fill(255,0,0);
     topLayer.stroke(0);
-    topLayer.rect(mouseX, mouseY, 300, 300);
-    
+    // topLayer.rect(mouseX, mouseY, 300, 300);
     image(topLayer, width/2, height/2, 800, 750);
   }
   if(blackJackA === 1){
@@ -133,10 +145,51 @@ function mousePressed() {
   }
 }
 
+class SlotGame{
+  constructor(){
+    this.col1 = [];
+    this.col2 = [];
+    this.col3 = [];
+    this.col1.push(new SlotTile(0,0,"7"));
+    this.col1.push(new SlotTile(0,0,"Cherry"));
+    this.col1.push(new SlotTile(0,0,"Lemon"));
+    this.col1.push(new SlotTile(0,0,"Bar"));
+    this.col1.push(new SlotTile(0,0,"Orange"));
+    this.col2.push(new SlotTile(0,0,"Cherry"));
+    this.col2.push(new SlotTile(0,0,"Lemon"));
+    this.col2.push(new SlotTile(0,0,"Bar"));
+    this.col2.push(new SlotTile(0,0,"Orange"));
+    this.col2.push(new SlotTile(0,0,"7"));
+    this.col3.push(new SlotTile(0,0,"Lemon"));
+    this.col3.push(new SlotTile(0,0,"Bar"));
+    this.col3.push(new SlotTile(0,0,"Orange"));
+    this.col3.push(new SlotTile(0,0,"Cherry"));
+    this.col3.push(new SlotTile(0,0,"7"));
+  }
+}
+
 class SlotTile{
   constructor(x, y, value){
     this.x = x;
     this.y = y;
-    // this.value = 
+    this.value = value;
   }
+  display(){
+    if (this.value === "7"){
+      image(slotSeven,this.x, this.y);
+    }
+    if (this.value === "Bar"){
+      image(slotBar, this.x, this.y);
+    }
+    if (this.value === "Cherry"){
+      image(slotCherry, this.x, this.y);
+    }
+    if (this.value === "Lemon"){
+      image(slotLemon, this.x, this.y);
+    }
+    if (this.value === "Orange"){
+      image(slotOrange, this.x, this.y);
+    }
+  }
+  
 }
