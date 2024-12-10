@@ -29,11 +29,11 @@ function preload(){
   bJLogo = loadImage('assets/BLACKJACK LOGO.png');
   rLogo = loadImage('assets/ROULETTE LOGO.png');
   sLogo = loadImage('assets/SLOTS LOGO.png');
-  slotSeven = loadImage('assets/SLOTS 7.png');
-  slotBar = loadImage('assets/SLOTS BAR.png');
-  slotCherry = loadImage('assets/SLOTS CHERRY.png');
-  slotLemon = loadImage('assets/SLOTS LEM.png');
-  slotOrange = loadImage('assets/SLOTS ORG.png');
+  slotSeven = loadImage('assets/SLOT 7.png');
+  slotBar = loadImage('assets/SLOT BAR.png');
+  slotCherry = loadImage('assets/SLOT CHERRY.png');
+  slotLemon = loadImage('assets/SLOT LEM.png');
+  slotOrange = loadImage('assets/SLOT ORG.png');
 }
 
 function setup() {
@@ -44,7 +44,7 @@ function setup() {
   bJY = height/2.1;
   rY = height/1.4;
   sY = height/2.3;
-  mySlotGame = new SlotGame(width/2, height/2);
+  mySlotGame = new SlotGame();
   stroke(255);
   noFill();
   // imageMode(CENTER);
@@ -103,12 +103,8 @@ function draw() {
     rect(width/2, height/2, 250, 750);
     rect(width/2.8, height/2, 250, 750);
     rect(width/1.55, height/2, 250, 750);
-    topLayer.mySlotGame.display();
     topLayer.clear();
-    topLayer.rectMode(CENTER);
-    topLayer.fill(255,0,0);
-    topLayer.stroke(0);
-    // topLayer.rect(mouseX, mouseY, 300, 300);
+    mySlotGame.display();
     image(topLayer, width/2, height/2, 800, 750);
   }
   if(blackJackA === 1){
@@ -150,21 +146,35 @@ class SlotGame{
     this.col1 = [];
     this.col2 = [];
     this.col3 = [];
-    this.col1.push(new SlotTile(0,0,"7"));
-    this.col1.push(new SlotTile(0,0,"Cherry"));
+    this.col1.push(new SlotTile(0,-500,"7"));
+    this.col1.push(new SlotTile(0,-250,"Cherry"));
     this.col1.push(new SlotTile(0,0,"Lemon"));
-    this.col1.push(new SlotTile(0,0,"Bar"));
-    this.col1.push(new SlotTile(0,0,"Orange"));
-    this.col2.push(new SlotTile(0,0,"Cherry"));
-    this.col2.push(new SlotTile(0,0,"Lemon"));
-    this.col2.push(new SlotTile(0,0,"Bar"));
-    this.col2.push(new SlotTile(0,0,"Orange"));
-    this.col2.push(new SlotTile(0,0,"7"));
-    this.col3.push(new SlotTile(0,0,"Lemon"));
-    this.col3.push(new SlotTile(0,0,"Bar"));
-    this.col3.push(new SlotTile(0,0,"Orange"));
-    this.col3.push(new SlotTile(0,0,"Cherry"));
-    this.col3.push(new SlotTile(0,0,"7"));
+    this.col1.push(new SlotTile(0,250,"Bar"));
+    this.col1.push(new SlotTile(0,500,"Orange"));
+    this.col2.push(new SlotTile(275,-500,"Cherry"));
+    this.col2.push(new SlotTile(275,-250,"Lemon"));
+    this.col2.push(new SlotTile(275,0,"Bar"));
+    this.col2.push(new SlotTile(275,250,"Orange"));
+    this.col2.push(new SlotTile(275,500,"7"));
+    this.col3.push(new SlotTile(555,-500,"Lemon"));
+    this.col3.push(new SlotTile(555,-250,"Bar"));
+    this.col3.push(new SlotTile(555,0,"Orange"));
+    this.col3.push(new SlotTile(555,250,"7"));
+    this.col3.push(new SlotTile(555,500,"Cherry"));
+  }
+  display(){
+    for(let s of this.col1){
+      s.display();
+      s.update();
+    }
+    for( let s of this.col2){
+      s.display();
+      s.update();
+    }
+    for(let s of this.col3){
+      s.display();
+      s.update();
+    }
   }
 }
 
@@ -173,23 +183,29 @@ class SlotTile{
     this.x = x;
     this.y = y;
     this.value = value;
+    this.speed = 66;
   }
   display(){
     if (this.value === "7"){
-      image(slotSeven,this.x, this.y);
+      topLayer.image(slotSeven,this.x, this.y);
     }
     if (this.value === "Bar"){
-      image(slotBar, this.x, this.y);
+      topLayer.image(slotBar, this.x, this.y);
     }
     if (this.value === "Cherry"){
-      image(slotCherry, this.x, this.y);
+      topLayer.image(slotCherry, this.x, this.y);
     }
     if (this.value === "Lemon"){
-      image(slotLemon, this.x, this.y);
+      topLayer.image(slotLemon, this.x, this.y);
     }
     if (this.value === "Orange"){
-      image(slotOrange, this.x, this.y);
+      topLayer.image(slotOrange, this.x, this.y);
     }
   }
-  
+  update(){
+    this.y += this.speed;
+    if(this.y >= 750){
+      this.y -= 1250;
+    }
+  }
 }
