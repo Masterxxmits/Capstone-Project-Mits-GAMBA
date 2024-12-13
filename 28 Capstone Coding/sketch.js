@@ -119,19 +119,21 @@ function draw() {
       line(x, 0, x + 800, height);
     }
     angleMode(DEGREES);
-    fill(255);
     stroke(0);
     rTable();
     fill(25,25,100);
     circle(0,0,550);
     // noFill();
     // circle(0,0, 600);
+    angleMode(RADIANS);
   }
 }
 
 function keyPressed() {
-  if (keyIsDown(32)) {
+  if(slotsA === 1 && keyIsDown(32)){
+    
     mySlotGame.stopLane();
+    
   }
 }
 
@@ -155,49 +157,37 @@ function mousePressed() {
   }
 }
 function rTable() {
+  let nums = ['0', '28', '9', '26', '30', '11', '7', '20', '32', '17', '5', '22', '34', '15','3', '24', '36', '13','1','00','27','10','25','29','12','8']
   push();
   translate(400,500);
+  //rotate(frameCount);
   circle(0,0,750);
   let red = true;
+  let i = 0;
   for (let a = 0; a <=360; a+= 360/38){
+
     if(red){
       fill(255,0,0);
+      
     }
     else{
       fill(0);
     }
     red = !red;
     arc(0,0,750,750,(a),(a+360/38));
+    push();
+    rotate(a);//(a*360/38);
+      fill(255);
+    text(nums[i], 0, -400);
+    pop();
+    i++;
   }
   fill(0,255,0);
   arc(0,0,750,750,(0),(360/38));
   fill(0,255,0);
   arc(0,0,750,750,(180),(180+360/38));
-  
-  //rotate(frameCount);
-//   let minArm = map(1,0,width,0,360);
-//   minArm = floor(minArm);
-//   for(let i = 0; i < 12; i++){
-//     line(0,0,0,0);
-//     rotate(360/12);
-//   }
-//   for(let i = 0; i < 38; i++){
-//     line(0,0,375,0);
-//     rotate(360/38);
-//   }
-//   rotate(frameCount/10);
-//   let HrArm = map(1,0,width,0,360);
-//   HrArm = floor(HrArm);
-//   for(let i = 0; i < 1; i++){
-//     line(0,0,0,0);
-//   }
-//   rotate(frameCount);
-//   let slowArm = map(1,0,width,0,360);
-//   slowArm = floor(slowArm);
-//   for(let i = 0; i < 1; i++){
-//     line(0,0,0,0);
-//   }
- }
+
+}
 
 class SlotGame {
   constructor() {
@@ -215,9 +205,9 @@ class SlotGame {
     this.col2.push(new SlotTile(275, 0, "Orange"));
     this.col2.push(new SlotTile(275, 250, "Bar"));
     this.col2.push(new SlotTile(275, 500, "Cherry"));
-    this.col3.push(new SlotTile(555, -500, "Orange"));
+    this.col3.push(new SlotTile(555, -500, "Cherry"));
     this.col3.push(new SlotTile(555, -250, "7"));
-    this.col3.push(new SlotTile(555, 0, "Cherry"));
+    this.col3.push(new SlotTile(555, 0, "Orange"));
     this.col3.push(new SlotTile(555, 250, "Bar"));
     this.col3.push(new SlotTile(555, 500, "Lemon"));
   }
