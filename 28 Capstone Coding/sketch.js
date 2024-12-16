@@ -23,6 +23,7 @@ let slotsA = 0;
 let blackJackA = 0;
 let rouletteA = 0;
 let topLayer;
+let pMoney = 1000;
 
 function preload() {
   logo = loadImage('assets/GAMBA LOGO (1).png');
@@ -59,6 +60,7 @@ function redBackGround() {
 }
 
 function draw() {
+  moneySystem();
   // background(255, 50, 5);
   if ((mouseX > width / 5 - 115 && mouseX < width / 5) && (mouseY > bJY - 125 && mouseY < bJY + 55)) {
     bJHover = true;
@@ -157,36 +159,44 @@ function mousePressed() {
   }
 }
 function rTable() {
-  let nums = ['0', '28', '9', '26', '30', '11', '7', '20', '32', '17', '5', '22', '34', '15','3', '24', '36', '13','1','00','27','10','25','29','12','8']
+  let nums = ['18', '6', '21', '33', '16', '4', '23', '35', '14', '2', '0', '28', '9', '26','30', '11', '7', '20','32','17','5','22','34','15','3','24','36','13','1','00','27','10','25','29','12','8','19','31'];
   push();
   translate(400,500);
-  //rotate(frameCount);
+  rotate(frameCount*5);
   circle(0,0,750);
   let red = true;
   let i = 0;
+  
   for (let a = 0; a <=360; a+= 360/38){
-
+    
     if(red){
-      fill(255,0,0);
+      fill(255,0,0,150);
       
     }
     else{
-      fill(0);
+      fill(0,0,0,150);
     }
     red = !red;
     arc(0,0,750,750,(a),(a+360/38));
     push();
     rotate(a);//(a*360/38);
-      fill(255);
-    text(nums[i], 0, -400);
+    fill(255);
+    textAlign(LEFT);
+    textSize(20);
+    text(nums[i], -10, -350);
     pop();
     i++;
   }
-  fill(0,255,0);
+  fill(0,255,0,150);
   arc(0,0,750,750,(0),(360/38));
-  fill(0,255,0);
+  fill(0,255,0,150);
   arc(0,0,750,750,(180),(180+360/38));
 
+}
+
+function moneySystem(){
+  stroke(255);
+  text('MONEY:'+ pMoney, width/2,height/2);
 }
 
 class SlotGame {
