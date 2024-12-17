@@ -23,6 +23,7 @@ let slotsA = 0;
 let blackJackA = 0;
 let rouletteA = 0;
 let topLayer;
+let slotsY;
 let pMoney = 1000;
 
 function preload() {
@@ -60,7 +61,7 @@ function redBackGround() {
 }
 
 function draw() {
-  moneySystem();
+
   // background(255, 50, 5);
   if ((mouseX > width / 5 - 115 && mouseX < width / 5) && (mouseY > bJY - 125 && mouseY < bJY + 55)) {
     bJHover = true;
@@ -87,6 +88,7 @@ function draw() {
     sY = min(sY + 3, height / 2.3);
   }
   redBackGround();
+  moneySystem();
   image(logo, width / 1.99, logoY + sin(frameCount / 20) * 30, 400, 330);
   image(bJLogo, width / 6, bJY, 400, 300);
   image(rLogo, width / 2, rY, 370, 300);
@@ -94,11 +96,12 @@ function draw() {
   // fill(0)
   // rect(width*0.45, rY-125, width*0.1, 180)
   if (slotsA === 1) {
+    stroke(0);
     background(237 + sin(frameCount / 20) * 30, 205 + sin(frameCount / 20) * 30, 98 + sin(frameCount / 20) * 30);
     for (let x = -width; x < width; x += 20) {
       line(x, 0, x + 800, height);
     }
-
+    moneySystem();
     fill(255);
     stroke(0);
     rectMode(CENTER);
@@ -108,14 +111,23 @@ function draw() {
     topLayer.clear();
     mySlotGame.display();
     image(topLayer, width / 2, height / 2, 800, 750);
+    if (height >= 250 && height <= 500){
+      if(this.col1(height >= 250 && height <= 500) === this.col2 (height >= 250 && height <= 500) === this.col3 (height >= 250 && height <= 500)){
+        pMoney+=100;
+
+      }
+    }
+    
   }
   if (blackJackA === 1) {
+    stroke(0);
     background(53 + sin(frameCount / 20) * 30, 101 + sin(frameCount / 20) * 30, 77 + sin(frameCount / 20) * 30);
     for (let x = -width; x < width; x += 20) {
       line(x, 0, x + 800, height);
     }
   }
   if (rouletteA === 1) {
+    stroke(0);
     background(145 + sin(frameCount / 20) * 30, 193 + sin(frameCount / 20) * 30, 214 + sin(frameCount / 20) * 30);
     for (let x = -width; x < width; x += 20) {
       line(x, 0, x + 800, height);
@@ -196,7 +208,8 @@ function rTable() {
 
 function moneySystem(){
   stroke(255);
-  text('MONEY:'+ pMoney, width/2,height/2);
+  textSize(15);
+  text('MONEY: ' + pMoney, width-120,height-900);
 }
 
 class SlotGame {
@@ -220,6 +233,11 @@ class SlotGame {
     this.col3.push(new SlotTile(555, 0, "Orange"));
     this.col3.push(new SlotTile(555, 250, "Bar"));
     this.col3.push(new SlotTile(555, 500, "Lemon"));
+  }
+
+  checkLine(){
+    let col1Value, col2Value, col3Value;
+    
   }
 
   stopLane() {
@@ -271,7 +289,7 @@ class SlotTile {
     this.x = x;
     this.y = y;
     this.value = value;
-    this.speed = 69;
+    this.speed = 5;
   }
   display() {
     if (this.value === "7") {
@@ -295,6 +313,7 @@ class SlotTile {
     if (this.y >= 750) {
       this.y -= 1250;
     }
+    slotsY = this.y;
   }
   gridSnap(){
     while (this.y%250!==0){
