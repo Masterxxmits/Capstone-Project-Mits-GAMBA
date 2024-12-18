@@ -110,14 +110,10 @@ function draw() {
     rect(width / 1.55, height / 2, 250, 750);
     topLayer.clear();
     mySlotGame.display();
-    image(topLayer, width / 2, height / 2, 800, 750);
-    if (height >= 250 && height <= 500){
-      if(this.col1(height >= 250 && height <= 500) === this.col2 (height >= 250 && height <= 500) === this.col3 (height >= 250 && height <= 500)){
-        pMoney+=100;
-
-      }
-    }
     
+    image(topLayer, width / 2, height / 2, 800, 750);
+    checkLine();
+  
   }
   if (blackJackA === 1) {
     stroke(0);
@@ -234,10 +230,10 @@ class SlotGame {
     this.col3.push(new SlotTile(555, 250, "Bar"));
     this.col3.push(new SlotTile(555, 500, "Lemon"));
   }
-
   checkLine(){
-    let col1Value, col2Value, col3Value;
-    
+    if(this.col1==="7" (height >= 250 && height <= 500 ) === this.col2==="7" (height >= 250 && height <= 500) === this.col3==="7" (height >= 250 && height <= 500)){
+      pMoney+=100;
+    }
   }
 
   stopLane() {
