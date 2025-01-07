@@ -25,6 +25,9 @@ let rouletteA = 0;
 let topLayer;
 let slotsY;
 let pMoney = 1000;
+let slotsGamble = 50;
+let currentFrame;
+let secondFrame;
 
 function preload() {
   logo = loadImage('assets/GAMBA LOGO (1).png');
@@ -110,10 +113,12 @@ function draw() {
     rect(width / 1.55, height / 2, 250, 750);
     topLayer.clear();
     mySlotGame.display();
-    
+
     image(topLayer, width / 2, height / 2, 800, 750);
-    checkLine();
-  
+    mySlotGame.checkLine();
+
+    // if (mouse)
+
   }
   if (blackJackA === 1) {
     stroke(0);
@@ -131,8 +136,8 @@ function draw() {
     angleMode(DEGREES);
     stroke(0);
     rTable();
-    fill(25,25,100);
-    circle(0,0,550);
+    fill(25, 25, 100);
+    circle(0, 0, 550);
     // noFill();
     // circle(0,0, 600);
     angleMode(RADIANS);
@@ -140,10 +145,10 @@ function draw() {
 }
 
 function keyPressed() {
-  if(slotsA === 1 && keyIsDown(32)){
-    
+  if (slotsA === 1 && keyIsDown(32)) {
+
     mySlotGame.stopLane();
-    
+
   }
 }
 
@@ -167,25 +172,25 @@ function mousePressed() {
   }
 }
 function rTable() {
-  let nums = ['18', '6', '21', '33', '16', '4', '23', '35', '14', '2', '0', '28', '9', '26','30', '11', '7', '20','32','17','5','22','34','15','3','24','36','13','1','00','27','10','25','29','12','8','19','31'];
+  let nums = ['18', '6', '21', '33', '16', '4', '23', '35', '14', '2', '0', '28', '9', '26', '30', '11', '7', '20', '32', '17', '5', '22', '34', '15', '3', '24', '36', '13', '1', '00', '27', '10', '25', '29', '12', '8', '19', '31'];
   push();
-  translate(400,500);
-  rotate(frameCount*5);
-  circle(0,0,750);
+  translate(400, 500);
+  rotate(frameCount * 5);
+  circle(0, 0, 750);
   let red = true;
   let i = 0;
-  
-  for (let a = 0; a <=360; a+= 360/38){
-    
-    if(red){
-      fill(255,0,0,150);
-      
+
+  for (let a = 0; a <= 360; a += 360 / 38) {
+
+    if (red) {
+      fill(255, 0, 0, 150);
+
     }
-    else{
-      fill(0,0,0,150);
+    else {
+      fill(0, 0, 0, 150);
     }
     red = !red;
-    arc(0,0,750,750,(a),(a+360/38));
+    arc(0, 0, 750, 750, (a), (a + 360 / 38));
     push();
     rotate(a);//(a*360/38);
     fill(255);
@@ -195,17 +200,17 @@ function rTable() {
     pop();
     i++;
   }
-  fill(0,255,0,150);
-  arc(0,0,750,750,(0),(360/38));
-  fill(0,255,0,150);
-  arc(0,0,750,750,(180),(180+360/38));
+  fill(0, 255, 0, 150);
+  arc(0, 0, 750, 750, (0), (360 / 38));
+  fill(0, 255, 0, 150);
+  arc(0, 0, 750, 750, (180), (180 + 360 / 38));
 
 }
 
-function moneySystem(){
+function moneySystem() {
   stroke(255);
   textSize(15);
-  text('MONEY: ' + pMoney, width-120,height-900);
+  text('MONEY: ' + pMoney, width - 120, height - 900);
 }
 
 class SlotGame {
@@ -221,8 +226,8 @@ class SlotGame {
     this.col1.push(new SlotTile(0, 500, "Orange"));
     this.col2.push(new SlotTile(275, -500, "Lemon"));
     this.col2.push(new SlotTile(275, -250, "7"));
-    this.col2.push(new SlotTile(275, 0, "Orange"));
-    this.col2.push(new SlotTile(275, 250, "Bar"));
+    this.col2.push(new SlotTile(275, 0, "Bar"));
+    this.col2.push(new SlotTile(275, 250, "Orange"));
     this.col2.push(new SlotTile(275, 500, "Cherry"));
     this.col3.push(new SlotTile(555, -500, "Cherry"));
     this.col3.push(new SlotTile(555, -250, "7"));
@@ -230,27 +235,84 @@ class SlotGame {
     this.col3.push(new SlotTile(555, 250, "Bar"));
     this.col3.push(new SlotTile(555, 500, "Lemon"));
   }
-  checkLine(){
-    if(this.col1==="7" (height >= 250 && height <= 500 ) === this.col2==="7" (height >= 250 && height <= 500) === this.col3==="7" (height >= 250 && height <= 500)){
-      pMoney+=100;
+  checkLine() {
+
+
+    let col1Value =1 ;
+    for (let t of this.col1) {
+      if (t.y === 250){
+        col1Value =t.value;
+      }
     }
+
+    let col2Value;
+    for (let t of this.col2) {
+      if (t.y === 250){
+        col2Value =t.value;
+      }
+    }
+    let col3Value;
+    for (let t of this.col3) {
+      if (t.y === 250){
+        col3Value =t.value;
+      }
+    }
+    print(col1Value, col2Value, col3Value);
+    if (col1Value === col2Value && col2Value === col3Value){
+      if(this.value === 3){
+        print("funny");
+        pMoney += 7000;
+        this.value = 0;
+      }
+    }
+    else if (col1Value !== col2Value && col2Value !== col3Value){
+      if(this.value === 3){
+        print("funny");
+        pMoney -=  slotsGamble;
+      
+        this.value = 0;
+      }
+    }
+    else if (col1Value === col2Value && col2Value !== col3Value){
+      if(this.value === 3){
+        print("funny");
+        this.value = 0;
+
+        pMoney -= slotsGamble;
+      }
+    }
+    else if (col1Value !== col2Value && col2Value === col3Value){
+      if(this.value === 3){
+        print("funny");
+        this.value = 0;
+        pMoney -=  slotsGamble;
+      }
+    }
+    // if (col1Value)
+
+    // if (this.col1[3] === this.col1[3] === this.col1[3]) {
+    //   pMoney += 100;
+    // }
+    // if(this.col1==="7" (height >= 250 && height <= 500 ) === this.col2==="7" (height >= 250 && height <= 500) === this.col3==="7" (height >= 250 && height <= 500)){
+    //   pMoney+=100; 
+    // }
   }
 
   stopLane() {
     this.value += 1;
-    if(this.value === 1){
+    if (this.value === 1) {
       print("snap1");
       for (let s of this.col1) {
         s.gridSnap();
       }
     }
-    if(this.value === 2){
+    if (this.value === 2) {
       print("snap2");
       for (let s of this.col2) {
         s.gridSnap();
       }
     }
-    if(this.value === 3){
+    if (this.value === 3) {
       print("snaprhombus");
       for (let s of this.col3) {
         s.gridSnap();
@@ -260,7 +322,7 @@ class SlotGame {
   display() {
 
     for (let s of this.col1) {
-      if(this.value === 0){
+      if (this.value === 0) {
         s.update();
       }
       s.display();
@@ -272,7 +334,7 @@ class SlotGame {
       s.display();
     }
     for (let s of this.col3) {
-      if ( this.value < 3) {
+      if (this.value < 3) {
         s.update();
       }
       s.display();
@@ -285,7 +347,7 @@ class SlotTile {
     this.x = x;
     this.y = y;
     this.value = value;
-    this.speed = 5;
+    this.speed = 69;
   }
   display() {
     if (this.value === "7") {
@@ -311,8 +373,8 @@ class SlotTile {
     }
     slotsY = this.y;
   }
-  gridSnap(){
-    while (this.y%250!==0){
+  gridSnap() {
+    while (this.y % 250 !== 0) {
       this.y++;
     }
     if (this.y >= 750) {
