@@ -11,6 +11,7 @@ let slotBar;
 let slotCherry;
 let slotLemon;
 let slotOrange;
+let slotGrape;
 let mySlotGame;
 let logoY = 0;
 let bJHover = false;
@@ -25,7 +26,7 @@ let rouletteA = 0;
 let topLayer;
 let slotsY;
 let pMoney = 1000;
-let slotsGamble = 50;
+let slotsGamble = 1000;
 let currentFrame;
 let secondFrame;
 
@@ -39,6 +40,7 @@ function preload() {
   slotCherry = loadImage('assets/SLOT CHERRY.png');
   slotLemon = loadImage('assets/SLOT LEM.png');
   slotOrange = loadImage('assets/SLOT ORG.png');
+  slotGrape = loadImage('assets/SLOTS PLUM.png');
 }
 
 function setup() {
@@ -211,6 +213,11 @@ function moneySystem() {
   stroke(255);
   textSize(15);
   text('MONEY: ' + pMoney, width - 120, height - 900);
+  if(pMoney <= 0){
+    stroke(255);
+    textSize(50);
+    text('YOU ARE BANKRUPT, TRY AGAIN?', windowWidth/2, height - 100);
+  }
 }
 
 class SlotGame {
@@ -219,20 +226,23 @@ class SlotGame {
     this.col1 = [];
     this.col2 = [];
     this.col3 = [];
-    this.col1.push(new SlotTile(0, -500, "7"));
-    this.col1.push(new SlotTile(0, -250, "Cherry"));
-    this.col1.push(new SlotTile(0, 0, "Lemon"));
+    this.col1.push(new SlotTile(0, -750, "7"));
+    this.col1.push(new SlotTile(0, -500, "Cherry"));
+    this.col1.push(new SlotTile(0, -250, "Lemon"));
+    this.col1.push(new SlotTile(0, 0, "Grape"));
     this.col1.push(new SlotTile(0, 250, "Bar"));
     this.col1.push(new SlotTile(0, 500, "Orange"));
-    this.col2.push(new SlotTile(275, -500, "Lemon"));
-    this.col2.push(new SlotTile(275, -250, "7"));
+    this.col2.push(new SlotTile(275, -750, "Lemon"));
+    this.col2.push(new SlotTile(275, -500, "7"));
+    this.col2.push(new SlotTile(275, -250, "Grape"));
     this.col2.push(new SlotTile(275, 0, "Bar"));
     this.col2.push(new SlotTile(275, 250, "Orange"));
     this.col2.push(new SlotTile(275, 500, "Cherry"));
-    this.col3.push(new SlotTile(555, -500, "Cherry"));
-    this.col3.push(new SlotTile(555, -250, "7"));
-    this.col3.push(new SlotTile(555, 0, "Orange"));
-    this.col3.push(new SlotTile(555, 250, "Bar"));
+    this.col3.push(new SlotTile(555, -750, "Cherry"));
+    this.col3.push(new SlotTile(555, -500, "7"));
+    this.col3.push(new SlotTile(555, -250, "Orange"));
+    this.col3.push(new SlotTile(555, 0, "Bar"));
+    this.col3.push(new SlotTile(555, 250, "Grape"));
     this.col3.push(new SlotTile(555, 500, "Lemon"));
   }
   checkLine() {
@@ -262,32 +272,201 @@ class SlotGame {
       if(this.value === 3){
         print("funny");
         pMoney += 7000;
-        this.value = 0;
+        this.value = 4;
       }
     }
-    else if (col1Value !== col2Value && col2Value !== col3Value){
-      if(this.value === 3){
-        print("funny");
-        pMoney -=  slotsGamble;
-      
-        this.value = 0;
-      }
-    }
-    else if (col1Value === col2Value && col2Value !== col3Value){
-      if(this.value === 3){
-        print("funny");
-        this.value = 0;
 
-        pMoney -= slotsGamble;
+    // else if (col1Value !== col2Value && col2Value !== col3Value){
+    //   if(this.value === 3){
+    //     print("funny");
+    //     pMoney -=  slotsGamble;
+      
+    //     this.value = 4;
+    //   }
+    // }
+    // else if (col1Value === col2Value && col2Value !== col3Value){
+    //   if(this.value === 3){
+    //     print("funny");
+    //     this.value = 4;
+
+    //     pMoney -= slotsGamble;
+    //   }
+    // }
+    // else if (col1Value !== col2Value && col2Value === col3Value){
+    //   if(this.value === 3){
+    //     print("funny");
+    //     this.value = 4;
+    //     pMoney -=  slotsGamble;
+    //   }
+    // }
+
+    let col1ValueB =1 ;
+    for (let t of this.col1) {
+      if (t.y === 500){
+        col1ValueB =t.value;
       }
     }
-    else if (col1Value !== col2Value && col2Value === col3Value){
+
+    let col2ValueB;
+    for (let t of this.col2) {
+      if (t.y === 500){
+        col2ValueB =t.value;
+      }
+    }
+    let col3ValueB;
+    for (let t of this.col3) {
+      if (t.y === 500){
+        col3ValueB =t.value;
+      }
+    }
+   
+    print(col1ValueB, col2ValueB, col3ValueB);
+    if (col1ValueB === col2ValueB && col2ValueB === col3ValueB){
+      print("MATCH");
       if(this.value === 3){
         print("funny");
-        this.value = 0;
-        pMoney -=  slotsGamble;
+        pMoney += 2500;
+        this.value = 4;
       }
     }
+
+    // else if (col1ValueB !== col2ValueB && col2ValueB !== col3ValueB){
+    //   if(this.value === 3){
+    //     print("funny");
+    //     pMoney -=  slotsGamble;
+      
+    //     this.value = 4;
+    //   }
+    // }
+    // else if (col1ValueB === col2ValueB && col2ValueB !== col3ValueB){
+    //   if(this.value === 3){
+    //     print("funny");
+    //     this.value = 4;
+
+    //     pMoney -= slotsGamble;
+    //   }
+    // }
+    // else if (col1ValueB !== col2ValueB && col2ValueB === col3ValueB){
+    //   if(this.value === 3){
+    //     print("funny");
+    //     this.value = 4;
+    //     pMoney -=  slotsGamble;
+    //   }
+    // }
+
+    let col1ValueT =1 ;
+    for (let t of this.col1) {
+      if (t.y === 0){
+        col1ValueT =t.value;
+      }
+    }
+
+    let col2ValueT;
+    for (let t of this.col2) {
+      if (t.y === 0){
+        col2ValueT =t.value;
+      }
+    }
+    let col3ValueT;
+    for (let t of this.col3) {
+      if (t.y === 0){
+        col3ValueT =t.value;
+      }
+    }
+
+    print(col1ValueT, col2ValueT, col3ValueT);
+    if (col1ValueT === col2ValueT && col2ValueT === col3ValueT){
+      if(this.value === 3){
+        print("funny");
+        pMoney += 2500;
+        this.value = 4;
+      }
+    }
+
+    let col1ValueD =1 ;
+    for (let t of this.col1) {
+      if (t.y === 0){
+        col1ValueD =t.value;
+      }
+    }
+
+    let col2ValueD;
+    for (let t of this.col2) {
+      if (t.y === 250){
+        col2ValueD =t.value;
+      }
+    }
+    let col3ValueD;
+    for (let t of this.col3) {
+      if (t.y === 500){
+        col3ValueD =t.value;
+      }
+    }
+    print(col1ValueD, col2ValueD, col3ValueD);
+    if (col1ValueD === col2ValueD && col2ValueD === col3ValueD){
+      if(this.value === 3){
+        print("funny");
+        pMoney += 1000;
+        this.value = 4;
+      }
+    }
+
+    let col1ValueD1 =1 ;
+    for (let t of this.col1) {
+      if (t.y === 500){
+        col1ValueD1 =t.value;
+      }
+    }
+
+    let col2ValueD1;
+    for (let t of this.col2) {
+      if (t.y === 250){
+        col2ValueD1 =t.value;
+      }
+    }
+    let col3ValueD1;
+    for (let t of this.col3) {
+      if (t.y === 0){
+        col3ValueD1 =t.value;
+      }
+    }
+    print(col1ValueD1, col2ValueD1, col3ValueD1);
+    if (col1ValueD1 === col2ValueD1 && col2ValueD1 === col3ValueD1){
+      if(this.value === 3){
+        print("funny");
+        pMoney += 1000;
+        this.value = 4;
+      }
+    }
+
+    if(this.value === 3){
+      pMoney -= slotsGamble;
+      this.value = 4;
+    }
+
+    // else if (col1ValueT !== col2ValueT && col2ValueT !== col3ValueT){
+    //   if(this.value === 3){
+    //     print("funny");
+    //     pMoney -=  slotsGamble;
+      
+    //     this.value = 4;
+    //   }
+    // }
+    // else if (col1ValueT === col2ValueT && col2ValueT !== col3ValueT){
+    //   if(this.value === 3){
+    //     print("funny");
+    //     this.value = 4;
+
+    //     pMoney -= slotsGamble;
+    //   }
+    // }
+    // else if (col1ValueT !== col2ValueT && col2ValueT === col3ValueT){
+    //   if(this.value === 3){
+    //     print("funny");
+    //     this.value = 4;
+    //     pMoney -=  slotsGamble;
+    //   }
+    // }
     // if (col1Value)
 
     // if (this.col1[3] === this.col1[3] === this.col1[3]) {
@@ -318,6 +497,9 @@ class SlotGame {
         s.gridSnap();
       }
     }
+    if( this.value > 3){
+      this.value = 0;
+    }
   }
   display() {
 
@@ -347,7 +529,7 @@ class SlotTile {
     this.x = x;
     this.y = y;
     this.value = value;
-    this.speed = 69;
+    this.speed = 5;
   }
   display() {
     if (this.value === "7") {
@@ -365,11 +547,16 @@ class SlotTile {
     if (this.value === "Orange") {
       topLayer.image(slotOrange, this.x, this.y);
     }
+    if (this.value === "Grape") {
+      topLayer.image(slotGrape, this.x, this.y);
+    }
   }
+
+  //Wrap around
   update() {
     this.y += this.speed;
     if (this.y >= 750) {
-      this.y -= 1250;
+      this.y -= 1500;
     }
     slotsY = this.y;
   }
@@ -378,7 +565,7 @@ class SlotTile {
       this.y++;
     }
     if (this.y >= 750) {
-      this.y -= 1250;
+      this.y -= 1500;
     }
 
   }
