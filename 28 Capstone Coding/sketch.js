@@ -25,10 +25,13 @@ let blackJackA = 0;
 let rouletteA = 0;
 let topLayer;
 let slotsY;
-let pMoney = 1000;
+let pMoney = 10000;
 let slotsGamble = 1000;
 let currentFrame;
 let secondFrame;
+let btLanes = 4000;
+let dLanes = 2000;
+let mLane = 7000;
 
 function preload() {
   logo = loadImage('assets/GAMBA LOGO (1).png');
@@ -150,7 +153,23 @@ function keyPressed() {
   if (slotsA === 1 && keyIsDown(32)) {
 
     mySlotGame.stopLane();
+  }
+}
 
+function increaseBet(){
+  if(keyPressed === UP_ARROW){
+    slotsGamble += 100;
+    btLanes *= 1.1;
+    dLanes *= 1.1;
+    mLane *= 1.1;
+  }
+}
+function decreaseBet(){
+  if(keyPressed === DOWN_ARROW){
+    slotsGamble -= 100;
+    btLanes *= 0.9;
+    dLanes *= 0.9;
+    mLane *= 0.9;
   }
 }
 
@@ -214,9 +233,9 @@ function moneySystem() {
   textSize(15);
   text('MONEY: ' + pMoney, width - 120, height - 900);
   if(pMoney <= 0){
-    stroke(255);
+    stroke(0);
     textSize(50);
-    text('YOU ARE BANKRUPT, TRY AGAIN?', windowWidth/2, height - 100);
+    text('YOU ARE BANKRUPT, TRY AGAIN?', windowWidth/3.5, height - 35);
   }
 }
 
@@ -271,7 +290,7 @@ class SlotGame {
     if (col1Value === col2Value && col2Value === col3Value){
       if(this.value === 3){
         print("funny");
-        pMoney += 7000;
+        pMoney += mLane;
         this.value = 4;
       }
     }
@@ -325,7 +344,7 @@ class SlotGame {
       print("MATCH");
       if(this.value === 3){
         print("funny");
-        pMoney += 2500;
+        pMoney += btLanes;
         this.value = 4;
       }
     }
@@ -378,7 +397,7 @@ class SlotGame {
     if (col1ValueT === col2ValueT && col2ValueT === col3ValueT){
       if(this.value === 3){
         print("funny");
-        pMoney += 2500;
+        pMoney += btLanes;
         this.value = 4;
       }
     }
@@ -406,7 +425,7 @@ class SlotGame {
     if (col1ValueD === col2ValueD && col2ValueD === col3ValueD){
       if(this.value === 3){
         print("funny");
-        pMoney += 1000;
+        pMoney += dLanes;
         this.value = 4;
       }
     }
@@ -434,7 +453,7 @@ class SlotGame {
     if (col1ValueD1 === col2ValueD1 && col2ValueD1 === col3ValueD1){
       if(this.value === 3){
         print("funny");
-        pMoney += 1000;
+        pMoney += dLanes;
         this.value = 4;
       }
     }
@@ -497,9 +516,13 @@ class SlotGame {
         s.gridSnap();
       }
     }
-    if( this.value > 3){
+    if( this.value >4){
+      if(pMoney === 0){
+        pMoney += 10000;
+      }
       this.value = 0;
     }
+    
   }
   display() {
 
@@ -529,7 +552,7 @@ class SlotTile {
     this.x = x;
     this.y = y;
     this.value = value;
-    this.speed = 5;
+    this.speed = 69;
   }
   display() {
     if (this.value === "7") {
