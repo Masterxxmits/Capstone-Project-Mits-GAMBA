@@ -31,7 +31,8 @@ let currentFrame;
 let secondFrame;
 let btLanes = 4000;
 let dLanes = 2000;
-let mLane = 7000;
+let mLane = 50000;
+let win =0;
 
 function preload() {
   logo = loadImage('assets/GAMBA LOGO (1).png');
@@ -121,6 +122,8 @@ function draw() {
 
     image(topLayer, width / 2, height / 2, 800, 750);
     mySlotGame.checkLine();
+    increaseBet();
+    decreaseBet();
 
     // if (mouse)
 
@@ -237,6 +240,12 @@ function moneySystem() {
     textSize(50);
     text('YOU ARE BANKRUPT, TRY AGAIN?', windowWidth/3.5, height - 35);
   }
+  if(pMoney >= 50000){
+    stroke(0);
+    textSize(50);
+    text('GET OUT OF MY CASINO!', windowWidth/3.5, height - 850);
+    slotsA = 0;
+  }
 }
 
 class SlotGame {
@@ -293,7 +302,13 @@ class SlotGame {
         pMoney += mLane;
         this.value = 4;
       }
-    }
+      
+      if(win ===0){
+        stroke(0);
+        textSize(50);
+        text('YOU WIN: '+ mLane, windowWidth/3.5, height - 35);
+      }
+    } 
 
     // else if (col1Value !== col2Value && col2Value !== col3Value){
     //   if(this.value === 3){
@@ -346,6 +361,11 @@ class SlotGame {
         print("funny");
         pMoney += btLanes;
         this.value = 4;
+      }
+      if(win ===0){
+        stroke(0);
+        textSize(50);
+        text('YOU WIN: '+ btLanes, windowWidth/3.5, height - 35);
       }
     }
 
@@ -400,6 +420,11 @@ class SlotGame {
         pMoney += btLanes;
         this.value = 4;
       }
+      if(win ===0){
+        stroke(0);
+        textSize(50);
+        text('YOU WIN: '+ btLanes, windowWidth/3.5, height - 35);
+      }
     }
 
     let col1ValueD =1 ;
@@ -428,6 +453,11 @@ class SlotGame {
         pMoney += dLanes;
         this.value = 4;
       }
+      if(win ===0){
+        stroke(0);
+        textSize(50);
+        text('YOU WIN: '+ dLanes, windowWidth/3.5, height - 35);
+      }
     }
 
     let col1ValueD1 =1 ;
@@ -454,7 +484,13 @@ class SlotGame {
       if(this.value === 3){
         print("funny");
         pMoney += dLanes;
+
         this.value = 4;
+      }
+      if(win ===0){
+        stroke(0);
+        textSize(50);
+        text('YOU WIN: '+ dLanes, windowWidth/3.5, height - 35);
       }
     }
 
@@ -552,7 +588,7 @@ class SlotTile {
     this.x = x;
     this.y = y;
     this.value = value;
-    this.speed = 69;
+    this.speed = 5;
   }
   display() {
     if (this.value === "7") {
