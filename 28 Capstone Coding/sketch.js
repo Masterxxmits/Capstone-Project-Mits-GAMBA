@@ -29,12 +29,20 @@ let pMoney = 10000;
 let slotsGamble = 1000;
 let currentFrame;
 let secondFrame;
-let btLanes = 4000;
-let dLanes = 2000;
-let mLane = 50000;
+let btLanes = 400;
+let dLanes = 500;
+let mLane = 700;
 let win =0;
+let slotsEnd;
+let mainMusic;
+let slotsMusic;
+let spinning;
+let winSound;
+let loseSound;
+let soundStart =1;
 
 function preload() {
+  soundFormats('mp3','wav');
   logo = loadImage('assets/GAMBA LOGO (1).png');
   bJLogo = loadImage('assets/BLACKJACK LOGO.png');
   rLogo = loadImage('assets/ROULETTE LOGO.png');
@@ -45,6 +53,11 @@ function preload() {
   slotLemon = loadImage('assets/SLOT LEM.png');
   slotOrange = loadImage('assets/SLOT ORG.png');
   slotGrape = loadImage('assets/SLOTS PLUM.png');
+  mainMusic = loadSound('assets/jazz-music-whiskey-bar-restaurant-casino-background-intro-theme-263181.mp3');
+  slotsMusic = loadSound('assets/31231248_poker_by_gentlejammers_preview.mp3');
+  // spinning = loadSound('assets/casino_slot_machine_musical_wheels_spinning_arpeggio_seamless_looping_7_wav.mp3');
+  winSound = loadSound('assets/preview.mp3');
+  loseSound = loadSound('assets/mixkit-losing-bleeps-2026.wav');
 }
 
 function setup() {
@@ -70,6 +83,11 @@ function redBackGround() {
 }
 
 function draw() {
+  if(soundStart === 1){
+    mainMusic.loop();
+    soundStart = 0;
+
+  }
 
   // background(255, 50, 5);
   if ((mouseX > width / 5 - 115 && mouseX < width / 5) && (mouseY > bJY - 125 && mouseY < bJY + 55)) {
@@ -179,15 +197,16 @@ function decreaseBet(){
 function mousePressed() {
   // click detection
   if ((mouseX > width / 5 - 115 && mouseX < width / 5) && (mouseY > bJY - 125 && mouseY < bJY + 55)) {
-    if (mouseIsPressed) {
-      blackJackA = 1;
-    }
+    
+    // if (mouseIsPressed) {
+    //   blackJackA = 1;
+    // }
   }
   if ((mouseX > width * 0.45 && mouseX < width * 0.55) && (mouseY > rY - 125 && mouseY < rY + 55)) {
     console.log(mouseX, mouseY);
-    if (mouseIsPressed) {
-      rouletteA = 1;
-    }
+    // if (mouseIsPressed) {
+    //   rouletteA = 1;
+    // }
   }
   if ((mouseX > width * 0.76 && mouseX < width * 0.91) && (mouseY > sY - 125 && mouseY < sY + 55)) {
     if (mouseIsPressed) {
@@ -250,6 +269,14 @@ function moneySystem() {
 
 class SlotGame {
   constructor() {
+    this.winnings = new Map([
+      ["7",7000],
+      ["Cherry",500],
+      ["Lemon",500],
+      ["Grape",500],
+      ["Bar",2000],
+      ["Orange",500]
+    ]);
     this.value = 0;
     this.col1 = [];
     this.col2 = [];
@@ -299,7 +326,7 @@ class SlotGame {
     if (col1Value === col2Value && col2Value === col3Value){
       if(this.value === 3){
         print("funny");
-        pMoney += mLane;
+        pMoney += (mLane*winnings);
         this.value = 4;
       }
       
@@ -359,7 +386,7 @@ class SlotGame {
       print("MATCH");
       if(this.value === 3){
         print("funny");
-        pMoney += btLanes;
+        pMoney += (btLanes*winnings);
         this.value = 4;
       }
       if(win ===0){
@@ -417,7 +444,7 @@ class SlotGame {
     if (col1ValueT === col2ValueT && col2ValueT === col3ValueT){
       if(this.value === 3){
         print("funny");
-        pMoney += btLanes;
+        pMoney += (btLanes*winnings);
         this.value = 4;
       }
       if(win ===0){
@@ -450,7 +477,7 @@ class SlotGame {
     if (col1ValueD === col2ValueD && col2ValueD === col3ValueD){
       if(this.value === 3){
         print("funny");
-        pMoney += dLanes;
+        pMoney += (dLanes*winnings);
         this.value = 4;
       }
       if(win ===0){
@@ -483,7 +510,7 @@ class SlotGame {
     if (col1ValueD1 === col2ValueD1 && col2ValueD1 === col3ValueD1){
       if(this.value === 3){
         print("funny");
-        pMoney += dLanes;
+        pMoney += (dLanes*winnings);
 
         this.value = 4;
       }
